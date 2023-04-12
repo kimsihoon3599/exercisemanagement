@@ -5,8 +5,10 @@ import java.util.Scanner;
 public class menu {
 
 	public static void main(String[] args) {
-		int num=0;
 		Scanner input = new Scanner(System.in);
+		StudentManager studentManager = new StudentManager(input);
+		int num=-1;
+		
 		
 		
 	
@@ -15,29 +17,49 @@ public class menu {
 		System.out.println("2. Delet Student");
 		System.out.println("3. Edit Student");
 		System.out.println("4. View Student ");
-		System.out.println("5. Show a menu");
-		System.out.println("6. Exit");
+		System.out.println("5. Exit");
 		num = input.nextInt();
-		switch(num) {
-		case 1:
-			System.out.print("Student Id :");
-			int studentId = input.nextInt();
-			System.out.print("Student name :");
-			String studentName = input.next();
-			System.out.print("Student address :");
-			int studentAddress = input.nextInt();
-			System.out.print("Student phonenumber :");
-			int studentPhonenumber = input.nextInt();
-			
-			break;
-		case 2:
-		case 3:
-		case 4:
-			System.out.print("Student Id :");
-			int studentId2 = input.nextInt();
-			
+		if(num==1) {
+			studentManager.addStudent();
 		}
+		else if (num ==2) {
+			studentManager.deletStudent();
+		}
+		else if (num ==3) {
+			studentManager.editStudent();
+		}
+		else if (num ==4) {
+			studentManager.viewStudent();
+	}
+		else {
+			continue;
+		}
+		}
+		}
+	
+	
+
+
+//		switch(num) {
+//		case 1:
+//			System.out.print("Student Id :");
+//			int studentId = input.nextInt();
+//			System.out.print("Student name :");
+//			String studentName = input.next();
+//			System.out.print("Student address :");
+//			int studentAddress = input.nextInt();
+//			System.out.print("Student phonenumber :");
+//			int studentPhonenumber = input.nextInt();
+//			
+//			break;
+//		case 2:
+//		case 3:
+//		case 4:
+//			System.out.print("Student Id :");
+//			int studentId2 = input.nextInt();
+//			
+//		}
 
 	}
-	}
-}
+	
+
