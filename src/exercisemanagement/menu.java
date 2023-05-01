@@ -29,7 +29,7 @@ public class menu {
 			studentManager.editStudent();
 		}
 		else if (num ==4) {
-			studentManager.viewStudent();
+			studentManager.viewStudents();
 	}
 		else {
 			continue;
