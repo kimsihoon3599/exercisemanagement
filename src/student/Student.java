@@ -1,8 +1,15 @@
 package student;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class Student {
+import exceptions.EmailFormatException;
+
+public abstract class Student implements StudentInput, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7647989844265756632L;
 	protected StudentKind kind = StudentKind.University;
 	public StudentKind getKind() {
 		return kind;
@@ -25,9 +32,14 @@ public class Student {
 	public String getEmail() {
 		return email;
 	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	public void setEmail(String email) throws EmailFormatException  {
+		if(!email.contains("@") && !email.equals("")) {
+			throw new EmailFormatException();
+		}
+		
+			this.email = email;
+		}
+	
 	public String getPhone() {
 		return phone;
 	}
@@ -40,6 +52,67 @@ public class Student {
 	public void setExercise(String exercise) {
 		this.exercise = exercise;
 	}
+	
+	public abstract void printInfo(); 
+	
+	public void setStudentID( Scanner input) {
+		System.out.print("Student ID:");
+		int id = input.nextInt();
+		this.setId(id);
+	}
+	public void setStudentName(Scanner input) {
+		System.out.print("Student Name:");
+		String name = input.next();
+		this.setName(name);
+	}
+	public void setStudentEmail(Scanner input) {
+		String email ="";
+		while (!email.contains("@")){
+			System.out.print("Email address:");
+			email = input.next();
+			try {
+				this.setEmail(email);
+				}catch(EmailFormatException e) {
+					System.out.println("Incorrect Email Formar. put the e-mail address contains @");
+					
+				}
+		}
+	}
+	public void setStudentPhone( Scanner input) {
+		System.out.print("Student Phone:");
+		String phone = input.next();
+		this.setPhone(phone);
+	}
+	public void setStudentExercise( Scanner input) {
+		System.out.print("Student Exercise:");
+		String exercise = input.next();
+		this.setExercise(exercise);
+	}
+	
+	public String getKindString() {
+		String skind = "none";
+		switch(this.kind) {
+		case University:
+			skind ="Univ";
+			break;
+		case HighSchool:
+			skind ="High";
+			break;
+		case MiddleSchool:
+			skind ="Middle";
+			break;
+		case ElementarySchool:
+			skind ="Elementary";
+			break;
+			default:
+		}
+		return skind;
+	}
+	
+
+
+
+	
 	protected String name;
 	protected int id;
 	protected String email;
@@ -48,6 +121,9 @@ public class Student {
 	
 	public Student() {
 		
+	}
+public Student(StudentKind kind) {
+		this.kind=kind;
 	}
 public Student(String name, int id) {
 		
@@ -65,25 +141,7 @@ public Student(String name, int id) {
 		this.exercise=exercise;
 		
 	}
-	public void printInfo() {
-		System.out.println("name: "+ name +" "+ "id: "+id+" "+ "email: " +email +" "+ "phone:" +phone +" "+"exercise: "+ exercise);
-	}
-	public void getUserInput(Scanner input){
-		System.out.print("Student ID :");
-		int id = input.nextInt();
-		this.setId(id);
-		System.out.print("Student name :");
-		String name = input.next();
-		this.setName(name);
-		System.out.print("Email address :");
-		String email = input.next();
-		this.setEmail(email);
-		System.out.print("Phone number :");
-		String phone = input.next();
-		this.setPhone(phone);
-		System.out.print("Exercise :");
-		String exercise = input.next();
-		this.setExercise(exercise);
-	}
+	
+	
 
 }

@@ -1,64 +1,125 @@
 package exercisemanagement;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import log.EventLogger;
+
 public class menu {
+	static EventLogger logger =new EventLogger("log.txt");
 
 	public static void main(String[] args) {
+		
 		Scanner input = new Scanner(System.in);
-		StudentManager studentManager = new StudentManager(input);
+		StudentManager studentManager = getObject("studentmanager.ser");
+		if(studentManager == null) {
+			 studentManager =new StudentManager(input);
+		}
+				//new StudentManager(input);
+	
+		selectMenu(input, studentManager);
+		putObject(studentManager, "studentmanager.ser");
+		}
+	public static void selectMenu(Scanner input, StudentManager studentManager) {
 		int num=-1;
-		
-		
-		
-	
-		while(num !=6) {
-		System.out.println("1. Add Student");
-		System.out.println("2. Delet Student");
-		System.out.println("3. Edit Student");
-		System.out.println("4. View Student ");
-		System.out.println("5. Exit");
+		while(num !=5) {
+			try {
+			showMenu();
 		num = input.nextInt();
-		if(num==1) {
+		switch(num) {
+		case 1:
 			studentManager.addStudent();
-		}
-		else if (num ==2) {
+			logger.log("add a student");
+			break;
+		case 2:
 			studentManager.deletStudent();
-		}
-		else if (num ==3) {
+			logger.log("delet a student");
+			break;
+		case 3:
 			studentManager.editStudent();
-		}
-		else if (num ==4) {
+			logger.log("edit a student");
+			break;
+		case 4:
 			studentManager.viewStudents();
+			logger.log("view a list of student");
+			break;
+		default:
+			continue;	
+		}
+			}
+			catch(InputMismatchException e) {
+				System.out.println("Please put an integer between 1 and 5!");
+				if(input.hasNext()) {
+					input.next();
+				}
+				num= -1;
+				
+			}
+		}
 	}
-		else {
-			continue;
-		}
-		}
+	public static void showMenu() {
+		 System.out.println("*** Student Management System Menu ***");
+			System.out.println("1. Add Student");
+			System.out.println("2. Delet Student");
+			System.out.println("3. Edit Student");
+			System.out.println("4. View Student ");
+			System.out.println("5. Exit");
+			System.out.println("Select one number between 1 ~6:");
+	}
+	public static StudentManager getObject(String filename) {
+		    StudentManager studentManager =null;
+		    
+			try {
+					FileInputStream file = new FileInputStream(filename);
+					ObjectInputStream in =new ObjectInputStream(file);
+					
+					studentManager = (StudentManager) in.readObject();
+					
+					in.close();
+					file.close();	
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+				return studentManager;
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				
+				} catch (ClassNotFoundException e) {
+			    	// TODO Auto-generated catch block
+					e.printStackTrace();
+	            }
+			    return studentManager;
 		}
 	
-	
+	public static void putObject(StudentManager studentManager ,String filename) {
+	    
+	    
+		try {
+			 FileOutputStream file = new FileOutputStream(filename);
+		     ObjectOutputStream out =new ObjectOutputStream(file);
+				
+				out.writeObject(studentManager);
+				
+				out.close();
+				file.close();	
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+			e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			
+		
+            }
+		
+	}
 
-
-//		switch(num) {
-//		case 1:
-//			System.out.print("Student Id :");
-//			int studentId = input.nextInt();
-//			System.out.print("Student name :");
-//			String studentName = input.next();
-//			System.out.print("Student address :");
-//			int studentAddress = input.nextInt();
-//			System.out.print("Student phonenumber :");
-//			int studentPhonenumber = input.nextInt();
-//			
-//			break;
-//		case 2:
-//		case 3:
-//		case 4:
-//			System.out.print("Student Id :");
-//			int studentId2 = input.nextInt();
-//			
-//		}
 
 	}
 	
