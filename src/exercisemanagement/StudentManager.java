@@ -6,6 +6,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import student.ElementarySchoolStudent;
 import student.HighSchoolStudent;
+import student.Student;
 import student.StudentInput;
 import student.StudentKind;
 import student.UniversityStudent;
@@ -145,6 +146,12 @@ public class StudentManager implements Serializable {
 			students.get(i).printInfo();
 		}
 		}
+	 public int size() {
+		 return students.size();
+	 }
+	 public StudentInput get(int index) {
+		 return(Student) students.get(index);
+	 }
 	
 	public void showEditMenu() {
 		System.out.println("*** Student Management System Menu ***");

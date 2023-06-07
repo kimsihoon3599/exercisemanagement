@@ -7,9 +7,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
-public class StudentAdder extends JFrame {
+public class StudentAdder extends JPanel {
+	WindowFrame f;
 	
-	public StudentAdder() {
+	public StudentAdder(WindowFrame f) {
+		this.f=f;
+
 		JPanel panel = new JPanel();
 		panel.setLayout(new SpringLayout());
 		
@@ -42,9 +45,8 @@ public class StudentAdder extends JFrame {
 		
 		SpringUtilities.makeCompactGrid(panel, 5, 2, 6, 6, 6, 6);
 		
-		this.setSize(300, 300);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setContentPane(panel);
+	
+		this.add(panel);
 		this.setVisible(true);
 		
 	

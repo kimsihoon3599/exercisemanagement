@@ -1,2 +1,2 @@
-5월 26, 2023 3:59:33 오후 log.EventLogger log
+6월 07, 2023 5:10:05 오후 log.EventLogger log
 INFO: view a list of student
